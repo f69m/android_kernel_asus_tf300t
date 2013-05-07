@@ -424,7 +424,7 @@ static void acm_read_bulk_callback(struct urb *urb)
 	}
 	usb_mark_last_busy(acm->dev);
 
-	if (urb->status) {
+	if (urb->status && !urb->actual_length) {
 		dev_dbg(&acm->data->dev, "%s - non-zero urb status: %d\n",
 							__func__, urb->status);
 		return;
@@ -917,12 +917,12 @@ static int acm_probe(struct usb_interface *intf,
 		}
 	}
 
-    if (project_info == TEGRA3_PROJECT_TF201) {
-        if (usb_dev->descriptor.idVendor == 0x1546 && usb_dev->descriptor.idProduct == 0x01a6) {
-            dev_info(&usb_dev->dev, "ublox - GPS Receiver Dongle plug.\n");
-            gps_dongle_flag = true;
-        }
-    }
+	if (project_info == TEGRA3_PROJECT_TF201) {
+		if (usb_dev->descriptor.idVendor == 0x1546 && usb_dev->descriptor.idProduct == 0x01a6) {
+			dev_info(&usb_dev->dev, "ublox - GPS Receiver Dongle plug.\n");
+			gps_dongle_flag = true;
+		}
+	}
 
 	/* not a real CDC ACM device */
 	if (quirks & NOT_REAL_ACM)

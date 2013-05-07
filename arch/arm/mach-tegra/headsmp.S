@@ -3,7 +3,7 @@
  *
  * CPU initialization routines for Tegra SoCs
  *
- * Copyright (c) 2009-2011, NVIDIA Corporation.
+ * Copyright (c) 2009-2012, NVIDIA Corporation. All rights reserved.
  * Copyright (c) 2011 Google, Inc.
  * Author: Colin Cross <ccross@android.com>
  *         Gary King <gking@nvidia.com>
@@ -34,11 +34,7 @@
 
 #define DEBUG_CPU_RESET_HANDLER	0	/* Non-zero enables debug code */
 
-#ifdef CONFIG_ARCH_TEGRA_2x_SOC
 #define PMC_SCRATCH41		0x140
-#else
-#define PMC_SCRATCH49		0x244
-#endif
 
 #define RESET_DATA(x)		((TEGRA_RESET_##x)*4)
 
@@ -86,16 +82,12 @@ ENTRY(tegra_resume)
 	mov32	r0, TEGRA_ARM_PERIF_BASE
 	ldr	r1, [r0]
 	orr	r1, r1, #1
-#if defined(CONFIG_HAVE_ARM_SCU)
-	orr	r1, r1, #(1 << 3)	@ Enable SCU speculative line fill.
-	orr	r1, r1, #(1 << 5)	@ Enable IC standby.
-	orr	r1, r1, #(1 << 6)	@ Enable SCU standby.
-#endif
 	str	r1, [r0]
 
 #ifdef CONFIG_TRUSTED_FOUNDATIONS
-	/* wake up (should have specified args?) */
-	bl	tegra_generic_smc
+	/* wake up */
+	mov	r0, #0x00000003
+	bl	tegra_generic_smc_local
 #endif
 
 	b	tegra_cpu_resume_phys
@@ -289,11 +281,7 @@ __is_not_lp2:
 __die:
 	sub	lr, lr, #4
 	mov32	r7, TEGRA_PMC_BASE
-#ifdef CONFIG_ARCH_TEGRA_2x_SOC
-    str lr, [r7, #PMC_SCRATCH41]
-#else
-	str	lr, [r7, #PMC_SCRATCH49]
-#endif
+	str	lr, [r7, #PMC_SCRATCH41]
 
 	mov32	r7, TEGRA_CLK_RESET_BASE
 
@@ -330,7 +318,7 @@ __die:
 	/* If the CPU didn't power gate above just kill it's clock. */
 
 	mov	r0, r11, lsl #8
-	str	r0, [r7, #0x348]		@ CLK_CPU_CMPLX_SET
+	str	r0, [r7, #348]			@ CLK_CPU_CMPLX_SET
 #endif
 	/* If the CPU still isn't dead, just spin here. */
 	b	.

@@ -646,7 +646,6 @@ void baseband_xmm_set_power_status(unsigned int status)
 		/* do this only from L2 state */
 		if (baseband_xmm_powerstate == BBXMM_PS_L2) {
 			baseband_xmm_powerstate = status;
-			baseband_xmm_powerstate = status;
 			pr_debug("BB XMM POWER STATE = %d\n", status);
 			xmm_power_L2_resume();
 		} else
@@ -1230,13 +1229,12 @@ static int xmm_power_driver_probe(struct platform_device *device)
 	if (!reg_cardhu_hsic) {
 		reg_cardhu_hsic = regulator_get(NULL, "vddio_hsic");
 		if (IS_ERR_OR_NULL(reg_cardhu_hsic)) {
-			pr_err("TF201XG HSIC power on LDO6 failed\n");
+			pr_err("TF300TG HSIC power on LDO6 failed\n");
 			reg_cardhu_hsic = NULL;
 			return PTR_ERR(reg_cardhu_hsic);
 		}
 		regulator_set_voltage(reg_cardhu_hsic, 1200000, 1200000);
 	}
-	baseband_xmm_enable_hsic_power(0);
 
 	gpio_set_value(pdata->modem.xmm.bb_vbat, 0);
 	mdelay(100);

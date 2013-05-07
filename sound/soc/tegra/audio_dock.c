@@ -64,12 +64,12 @@ int audio_stand_route(bool status)
 	dapm = &audio_codec->dapm;
 
 	if(snd_soc_dapm_get_pin_status(dapm, "Int Spk") ||
-			 snd_soc_dapm_get_pin_status(dapm, "AUX")){
+			snd_soc_dapm_get_pin_status(dapm, "AUX")){
 		if(status){
-        	        printk("%s: audio stand lineout on\n", __func__);
-	                snd_soc_dapm_enable_pin(dapm, "AUX");
-	                snd_soc_dapm_disable_pin(dapm, "Int Spk");
-        	        snd_soc_dapm_sync(dapm);
+			printk("%s: audio stand lineout on\n", __func__);
+			snd_soc_dapm_enable_pin(dapm, "AUX");
+			snd_soc_dapm_disable_pin(dapm, "Int Spk");
+			snd_soc_dapm_sync(dapm);
 		}else{
 			printk("%s: audio stand lineout off\n", __func__);
 			snd_soc_dapm_disable_pin(dapm, "AUX");
@@ -104,10 +104,10 @@ int audio_dock_in_out(u8 status)
 	if(snd_soc_dapm_get_pin_status(dapm, "Int Spk") ||
 			snd_soc_dapm_get_pin_status(dapm, "AUX")){
 		if(status == AUDIO_DOCK ){
-                	printk("%s: audio_dock_in\n", __func__);
-	                snd_soc_dapm_enable_pin(dapm, "AUX");
-        	        snd_soc_dapm_disable_pin(dapm, "Int Spk");
-                	snd_soc_dapm_sync(dapm);
+			printk("%s: audio_dock_in\n", __func__);
+			snd_soc_dapm_enable_pin(dapm, "AUX");
+			snd_soc_dapm_disable_pin(dapm, "Int Spk");
+			snd_soc_dapm_sync(dapm);
 		}else if(status == AUDIO_STAND ){
 			if(gpio_get_value(TEGRA_GPIO_PX3) == 0){
 				lineout_alive = true;
@@ -119,11 +119,11 @@ int audio_dock_in_out(u8 status)
 				set_lineout_state(false);
 			}
 		}else{
-                	printk("%s: audio_stand_dock_out\n", __func__);
-	                snd_soc_dapm_disable_pin(dapm, "AUX");
-	                snd_soc_dapm_enable_pin(dapm, "Int Spk");
-        	        snd_soc_dapm_sync(dapm);
-		}	
+			printk("%s: audio_stand_dock_out\n", __func__);
+			snd_soc_dapm_disable_pin(dapm, "AUX");
+			snd_soc_dapm_enable_pin(dapm, "Int Spk");
+			snd_soc_dapm_sync(dapm);
+		}
 	}else if (snd_soc_dapm_get_pin_status(dapm, "Headphone Jack")){
 		printk("%s: headphone is inserted\n", __func__);
 		/* if headphone is inserted, we set lineout state
@@ -150,13 +150,13 @@ void audio_dock_init(void)
 
 	project_info = tegra3_get_project_id();
 
-        switch(project_info){
+	switch(project_info){
 		case TEGRA3_PROJECT_TF201:
 		case TEGRA3_PROJECT_TF300TG:
 		case TEGRA3_PROJECT_TF300TL:
 		case TEGRA3_PROJECT_TF700T:
 			if(project_info == TEGRA3_PROJECT_TF300TG && tegra3_query_audio_codec_pcbid() !=
-				TEGRA3_DEVKIT_MISC_HW_0_ACODEC_3){
+					TEGRA3_DEVKIT_MISC_HW_0_ACODEC_3){
 				g_dock_support = false;
 			}
 			audio_codec = rt5631_audio_codec;

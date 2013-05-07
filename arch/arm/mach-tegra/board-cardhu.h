@@ -188,11 +188,9 @@
 
 //TF300T, TF500T
 #define ICATCH7002A_RST_GPIO TEGRA_GPIO_PBB0
-#define ICATCH7002A_AF_PWR_EN_GPIO TEGRA_GPIO_PS0
 #define ICATCH7002A_VDDIO_EN_GPIO TEGRA_GPIO_PBB4
 #define ICATCH7002A_PWR_DN_GPIO TEGRA_GPIO_PBB5
 #define ICATCH7002A_VDDC_EN_GPIO TEGRA_GPIO_PBB7
-#define ICATCH7002A_VDDA_EN_GPIO TEGRA_GPIO_PR6  //KB_ROW6
 #define ICATCH7002A_ISP_1V2_EN TEGRA_GPIO_PS3   //For TF500T; PBB7 in other porjects
 #define ICATCH7002A_CAM_2V85_EN TEGRA_GPIO_PR7
 
@@ -237,11 +235,16 @@ int cardhu_pm298_gpio_switch_regulator_init(void);
 int cardhu_pm298_regulator_init(void);
 int cardhu_pm299_gpio_switch_regulator_init(void);
 int cardhu_pm299_regulator_init(void);
-struct platform_device *cardhu_tegra_usb_utmip_host_register(void);
-void cardhu_tegra_usb_utmip_host_unregister(struct platform_device *pdev);
+struct platform_device *tegra_cardhu_usb_utmip_host_register(void);
+void tegra_cardhu_usb_utmip_host_unregister(struct platform_device *pdev);
 struct platform_device *tegra_usb3_utmip_host_register(void);
 void tegra_usb3_utmip_host_unregister(struct platform_device *pdev);
 
+extern struct tegra_uart_platform_data cardhu_irda_pdata;
+
+#define MPU_TYPE_MPU3050	1
+#define MPU_TYPE_MPU6050	2
+#define MPU_GYRO_TYPE		MPU_TYPE_MPU3050
 /* Invensense MPU Definitions */
 #define MPU3050_GYRO_NAME		"mpu3050"
 #define MPU6050_GYRO_NAME		"mpu6050"
@@ -286,6 +289,10 @@ void tegra_usb3_utmip_host_unregister(struct platform_device *pdev);
 #define TF500T_GYRO_ORIENTATION		{ 0, -1, 0, 1, 0, 0, 0, 0, 1 }
 #define TF500T_COMPASS_ORIENTATION	{ 0, -1, 0, 1, 0, 0, 0, 0, 1 }
 
+//Sensors orientation matrix for ME301T and ME301TL
+#define ME301T_GYRO_ORIENTATION		{ 0, 1, 0, 1, 0, 0, 0, 0, -1 }
+#define ME301T_COMPASS_ORIENTATION	{ 0, 1, 0, 1, 0, 0, 0, 0, -1 }
+
 /* Kionix Accel sensor Definitions*/
 #define KIONIX_ACCEL_NAME	"KXT_9"
 #define KIONIX_ACCEL_IRQ_GPIO	TEGRA_GPIO_PO5
@@ -328,5 +335,10 @@ void tegra_usb3_utmip_host_unregister(struct platform_device *pdev);
 
 
 #define TDIODE_OFFSET	(10000)	/* in millicelsius */
+
+enum tegra_bb_type {
+	TEGRA_BB_TANGO = 1,
+};
+
 
 #endif

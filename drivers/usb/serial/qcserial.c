@@ -107,7 +107,6 @@ static struct usb_driver qcdriver = {
 	.id_table		= id_table,
 	.suspend		= usb_serial_suspend,
 	.resume			= usb_serial_resume,
-	.reset_resume		= usb_serial_resume,
 	.supports_autosuspend	= true,
 };
 
