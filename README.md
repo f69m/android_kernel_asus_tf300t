@@ -15,8 +15,11 @@ My Branches
 Tracking Branches
 -----------------
 
-  * **upstream-asus**  
-    Tracking Asus kernel releases
+  * **upstream-asus-tf300t**  
+    Tracking Asus kernel releases for TF300T
+
+  * **upstream-asus-tf300tg**  
+    Tracking Asus kernel releases for TF300TG
 
   * **upstream-cm-10.1**  
     Tracking the [CyanogenMod repository](https://github.com/CyanogenMod/android_kernel_asus_tf300t)
