@@ -230,7 +230,7 @@ static struct snd_soc_dai_link tegra_rt5631_dai[] = {
 };
 
 static struct snd_soc_card snd_soc_tegra_rt5631 = {
-	.name = "tegra-codec",
+	.name = "tegra-rt5631",
 	.dai_link = tegra_rt5631_dai,
 	.num_links = ARRAY_SIZE(tegra_rt5631_dai),
 };

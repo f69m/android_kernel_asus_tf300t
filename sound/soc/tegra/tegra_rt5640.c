@@ -642,7 +642,7 @@ static int tegra_rt5640_set_bias_level_post(struct snd_soc_card *card,
 }
 
 static struct snd_soc_card snd_soc_tegra_rt5640 = {
-	.name = "tegra-codec",
+	.name = "tegra-rt5640",
 	.dai_link = tegra_rt5640_dai,
 	.num_links = ARRAY_SIZE(tegra_rt5640_dai),
 	.resume_pre = tegra_rt5640_resume_pre,
