@@ -637,7 +637,7 @@ static int pad_get_psp(int reg_offset, enum power_supply_property psp,
 	}
 	if (psp == POWER_SUPPLY_PROP_VOLTAGE_NOW) {
 		val->intval=pad_device->bat_vol;
-		printk("pad_get_psp voltage_now =%u\n",val->intval );//4
+		//printk("pad_get_psp voltage_now =%u\n",val->intval );//4
 	}
 	if (psp == POWER_SUPPLY_PROP_STATUS) {
 		ret=pad_device->bat_status;
@@ -654,7 +654,7 @@ static int pad_get_psp(int reg_offset, enum power_supply_property psp,
 			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
 		else 
 			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
-		printk("pad_get_psp  val->intval=%s ret=%x\n" ,status_text[val->intval],ret);//4
+		//printk("pad_get_psp  val->intval=%s ret=%x\n" ,status_text[val->intval],ret);//4
 	}else if (psp == POWER_SUPPLY_PROP_TEMP) {
 		ret=pad_device->bat_temp;
 		ret -=TEMP_KELVIN_TO_CELCIUS;
@@ -669,7 +669,7 @@ static int pad_get_psp(int reg_offset, enum power_supply_property psp,
 			pad_device->temp_err=0;
 
 		pad_device->old_temperature=val->intval = ret;
-		printk("pad_get_psp  batttery temperature=%u\n",val->intval );
+		//printk("pad_get_psp  batttery temperature=%u\n",val->intval );
 	}
 	return 0;
 }
@@ -731,7 +731,7 @@ static int pad_get_capacity(union power_supply_propval *val)
 
 	pad_device->old_capacity=val->intval;
 	pad_device->cap_err=0;
-	printk("pad_get_capacity val->intval=%u ret=%u\n",val->intval,ret);
+	//printk("pad_get_capacity val->intval=%u ret=%u\n",val->intval,ret);
 	return 0;
 }
 static int pad_get_property(struct power_supply *psy,

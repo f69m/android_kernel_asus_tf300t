@@ -623,7 +623,7 @@ static void asuspec_enter_s3_timer(unsigned long data){
 }
 
 static void asuspec_send_ec_req(void){
-	ASUSPEC_NOTICE("send EC_Request\n");
+	//ASUSPEC_NOTICE("send EC_Request\n");
 	gpio_set_value(asuspec_ecreq_gpio, 0);
 	msleep(DELAY_TIME_MS);
 	gpio_set_value(asuspec_ecreq_gpio, 1);
@@ -631,7 +631,7 @@ static void asuspec_send_ec_req(void){
 
 static void asuspec_smi(void){
 	if (ec_chip->i2c_data[2] == ASUSPEC_SMI_HANDSHAKING){
-		ASUSPEC_NOTICE("ASUSPEC_SMI_HANDSHAKING\n");
+		//ASUSPEC_NOTICE("ASUSPEC_SMI_HANDSHAKING\n");
 		if(ec_chip->status == 0){
 			asuspec_chip_init(ec_chip->client);
 		}
@@ -690,7 +690,7 @@ static void asuspec_enter_s3_work_function(struct work_struct *dat)
 			msleep(100);
 		}
 		else {
-			ASUSPEC_NOTICE("EC in S3\n");
+			//ASUSPEC_NOTICE("EC in S3\n");
 			break;
 		}
 	}
@@ -732,8 +732,8 @@ static void asuspec_work_function(struct work_struct *dat)
 	ret_val = asuspec_i2c_read_data(ec_chip->client);
 	enable_irq(irq);
 
-	ASUSPEC_NOTICE("0x%x 0x%x 0x%x 0x%x\n", ec_chip->i2c_data[0],
-		ec_chip->i2c_data[1], ec_chip->i2c_data[2], ec_chip->i2c_data[3]);
+	//ASUSPEC_NOTICE("0x%x 0x%x 0x%x 0x%x\n", ec_chip->i2c_data[0],
+	//	ec_chip->i2c_data[1], ec_chip->i2c_data[2], ec_chip->i2c_data[3]);
 
 	if (ret_val < 0){
 		return ;

@@ -2539,7 +2539,7 @@ static int asusdec_dock_battery_get_capacity(union power_supply_propval *val){
 
 			bat_percentage = ((bat_percentage <= 0) ? 0 : bat_percentage);
 			val->intval = bat_percentage;
-			ASUSDEC_NOTICE("dock battery level = %d\n", bat_percentage);
+			//ASUSDEC_NOTICE("dock battery level = %d\n", bat_percentage);
 			return 0;
 		}
 	}

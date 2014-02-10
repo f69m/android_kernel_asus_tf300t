@@ -581,8 +581,8 @@ static int tegra_cpu_edp_notify(
 		new_speed = edp_governor_speed(cpu_speed);
 		if (new_speed < cpu_speed) {
 			ret = tegra_cpu_set_speed_cap(NULL);
-			printk(KERN_DEBUG "cpu-tegra:%sforce EDP limit %u kHz"
-				"\n", ret ? " failed to " : " ", new_speed);
+			//printk(KERN_DEBUG "cpu-tegra:%sforce EDP limit %u kHz"
+			//	"\n", ret ? " failed to " : " ", new_speed);
 		}
 		if (!ret)
 			ret = tegra_cpu_dvfs_alter(
